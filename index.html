@@ -3,110 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esteban 4K | iOS Light Pro</title>
+    <title>Esteban 4K | iOS Auth</title>
     <style>
-        :root { 
-            --bg-color: #F2F2F7; /* Gris muy claro, casi blanco */
-            --glass-bg: rgba(255, 255, 255, 0.8); /* Vidrio blanco */
-            --ios-blue: #007AFF; /* Azul iOS */
-            --text-main: #000000;
-        }
-        body { 
-            margin: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-main);
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
-        }
+        :root { --bg-color: #F2F2F7; --glass-bg: rgba(255, 255, 255, 0.85); --ios-blue: #007AFF; }
+        body { margin: 0; font-family: -apple-system, sans-serif; background-color: var(--bg-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .container { width: 90%; max-width: 400px; }
-        .card { 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
-            padding: 25px; 
-            border-radius: 30px; 
-            border: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
+        .card { background: var(--glass-bg); backdrop-filter: blur(20px); padding: 25px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.05); margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
         
-        /* BOTÓN ESTILO iOS DOCK (VIDRIO REDONDEADO) */
-        .ios-button-style { 
-            background: rgba(0, 0, 0, 0.05); 
-            backdrop-filter: blur(10px);
-            border: none;
-            padding: 18px; 
-            width: 100%; 
-            border-radius: 25px; 
-            color: var(--ios-blue); 
-            font-weight: 600; 
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            text-align: center;
+        /* Efecto FaceID */
+        #faceIdOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95); z-index: 100; justify-content: center; 
+            align-items: center; flex-direction: column;
         }
-        .ios-button-style:active { transform: scale(0.97); opacity: 0.7; }
-        .ios-button-style.primary { background: var(--ios-blue); color: white; }
-
-        input { 
-            background: rgba(0,0,0,0.03); 
-            border: none; padding: 18px; width: 100%; 
-            border-radius: 20px; color: black; box-sizing: border-box;
-        }
+        #lockIcon { font-size: 60px; transition: transform 0.3s; }
+        
+        .ios-button-style { background: rgba(0,0,0,0.05); border: none; padding: 18px; width: 100%; border-radius: 20px; color: var(--ios-blue); font-weight: 600; cursor: pointer; }
+        .primary { background: var(--ios-blue); color: white; }
+        input { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.1); padding: 18px; width: 100%; border-radius: 18px; box-sizing: border-box; }
         
         #seccionRecarga, #seccionPago, #seccionFinal { display: none; }
-        .gem-option { 
-            background: rgba(0,0,0,0.03); padding: 20px; border-radius: 20px; 
-            margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between;
-        }
+        .gem-option { background: rgba(0,0,0,0.03); padding: 18px; border-radius: 20px; margin-bottom: 12px; cursor: pointer; display: flex; justify-content: space-between; }
     </style>
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCWLQaTQXt6DFHHf1S_-shcNdIaLpwXeoo",
-            authDomain: "esteban-4k.firebaseapp.com",
-            projectId: "esteban-4k",
-            storageBucket: "esteban-4k.firebasestorage.app",
-            messagingSenderId: "319790003304",
-            appId: "1:319790003304:web:b84b2458213686b3e0b7dd"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.iniciarSesion = async () => {
-            const id = document.getElementById('idInput').value;
-            const card = document.getElementById('seccionLogin');
-            if (/^\d{5,12}$/.test(id)) {
-                card.style.border = "2px solid var(--ios-blue)";
-                await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date() });
-                setTimeout(() => { card.style.display = 'none'; document.getElementById('seccionRecarga').style.display = 'block'; }, 1000);
-            } else { alert("ID Inválido"); }
-        };
-
-        window.seleccionarPack = (p) => {
-            document.getElementById('precioTotal').innerText = "Total: " + p;
-            document.getElementById('seccionRecarga').style.display = 'none';
-            document.getElementById('seccionPago').style.display = 'block';
-        };
-
-        window.finalizar = () => {
-            const ref = document.getElementById('refPago').value;
-            if (ref.length < 5) return alert("Referencia necesaria");
-            window.open(`https://wa.me/584126701585?text=Pago%20ref:%20${ref}`, '_blank');
-        };
-    </script>
 </head>
 <body>
+
+<!-- Audio de desbloqueo iOS -->
+<audio id="unlockSound" src="https://actions.google.com/sounds/v1/ui/unlock.ogg"></audio>
+
+<div id="faceIdOverlay">
+    <div id="lockIcon">🔒</div>
+    <p style="font-weight: 600; margin-top: 10px;">Face ID</p>
+</div>
 
 <div class="container">
     <div id="seccionLogin" class="card">
         <h3>Identificación</h3>
         <input type="text" id="idInput" placeholder="ID de Jugador">
-        <button class="ios-button-style primary" onclick="iniciarSesion()">Verificar Identidad</button>
+        <button class="ios-button-style primary" onclick="verificar()">Verificar Identidad</button>
     </div>
 
     <div id="seccionRecarga" class="card">
@@ -116,13 +50,55 @@
     </div>
 
     <div id="seccionPago" class="card">
-        <h3>Pago Seguro</h3>
-        <input type="text" id="refPago" placeholder="N° Referencia">
-        <h2 id="precioTotal" style="text-align:center"></h2>
-        <button class="ios-button-style primary" onclick="finalizar()">Confirmar Pago</button>
-        <button class="ios-button-style" onclick="location.reload()">Cancelar</button>
+        <h3>Confirmar Pago</h3>
+        <input type="text" id="refPago" placeholder="N° de Referencia">
+        <h2 id="precioTotal"></h2>
+        <button class="ios-button-style primary" onclick="finalizar()">Confirmar</button>
     </div>
 </div>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const db = getFirestore(initializeApp({ /* Tus datos de Firebase */ }));
+
+    window.verificar = async () => {
+        const id = document.getElementById('idInput').value;
+        if (!/^\d{5,12}$/.test(id)) return alert("ID inválido");
+
+        const overlay = document.getElementById('faceIdOverlay');
+        const lockIcon = document.getElementById('lockIcon');
+        const audio = document.getElementById('unlockSound');
+
+        overlay.style.display = 'flex';
+        await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date() });
+
+        // Simular reconocimiento
+        setTimeout(() => {
+            lockIcon.innerText = "🔓"; // Cambia a candado abierto
+            audio.play(); // Suena el desbloqueo
+            
+            // Cierra la animación después del sonido
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('seccionLogin').style.display = 'none';
+                document.getElementById('seccionRecarga').style.display = 'block';
+            }, 600);
+        }, 1500);
+    };
+
+    window.seleccionarPack = (p) => {
+        document.getElementById('precioTotal').innerText = "Total: " + p;
+        document.getElementById('seccionRecarga').style.display = 'none';
+        document.getElementById('seccionPago').style.display = 'block';
+    };
+
+    window.finalizar = () => {
+        const ref = document.getElementById('refPago').value;
+        if (ref.length < 5) return alert("Referencia necesaria");
+        window.open(`https://wa.me/584126701585?text=Pago%20ref:%20${ref}`, '_blank');
+    };
+</script>
 </body>
 </html>
