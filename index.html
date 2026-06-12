@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esteban 4K | iOS Light Pro</title>
+    <title>TiendaEsteban</title>
     <style>
         :root { 
             --glass-bg: rgba(255, 255, 255, 0.70);
@@ -158,9 +158,9 @@
 <div class="container">
     <!-- PANTALLA 1: IDENTIFICACIÓN -->
     <div id="seccionLogin" class="card active">
-        <h3>Identificación</h3>
+        <h3>ID Jugador</h3>
         <input type="text" id="idInput" placeholder="ID de Jugador" inputmode="numeric">
-        <button class="ios-button-style" id="btnLogin">Verificar Identidad</button>
+        <button class="ios-button-style" id="btnLogin">Verificar UID</button>
     </div>
 
     <!-- PANTALLA 2: SELECCIÓN DE PACK -->
@@ -168,6 +168,8 @@
         <h3>Selecciona Pack</h3>
         <div class="gem-option" data-precio="$0.99">💎 100 <span>$0.99</span></div>
         <div class="gem-option" data-precio="$2.99">💎 310 <span>$2.99</span></div>
+        <div class="gem-option" data-precio="$2.99">💎 520 <span>$4.99</span></div>
+        <div class="gem-option" data-precio="$2.99">💎 1060 <span>$9.99</span></div>
         <button class="ios-button-style danger" id="btnAtrasRecarga">Atrás</button>
     </div>
 
@@ -236,7 +238,7 @@
             </div>
         </div>
 
-        <button class="ios-button-style" id="btnEnviarWhatsApp">Notificar a Esteban 4K</button>
+        <button class="ios-button-style" id="btnEnviarWhatsApp">Notificar a Alex</button>
         <button class="ios-button-style danger" id="btnNuevaOrden">Hacer otra recarga</button>
     </div>
 </div>
@@ -248,8 +250,8 @@
     const firebaseConfig = {
         apiKey: "AIzaSyCWLQaTQXt6DFHHf1S_-shcNdIaLpwXeoo",
         authDomain: "://firebaseapp.com",
-        projectId: "esteban-4k",
-        storageBucket: "esteban-4k.firebasestorage.app",
+        projectId: "esteban",
+        storageBucket: "esteban-.firebasestorage.app",
         messagingSenderId: "319790003304",
         appId: "1:319790003304:web:b84b2458213686b3e0b7dd"
     };
@@ -286,7 +288,7 @@
         }
 
         cardLogin.classList.add('verificando');
-        btnLogin.innerText = "Verificando identidad con IA...";
+        btnLogin.innerText = "Alexx esta verificando tu UID...";
         btnLogin.disabled = true; idInput.disabled = true;
 
         if (db) { db.collection("jugadores").add({ id: jugadorId, fecha: new Date() }).catch(function() { }); }
