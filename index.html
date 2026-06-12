@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Recargas de diamantes para Free Fire al mejor precio. Esteban 4K es tu tienda premium de confianza.">
     <title>Esteban 4K | Premium Shop</title>
-    
     <style>
-        :root { --bg-dark: #0a0a0a; --card-dark: rgba(20, 20, 20, 0.85); --neon-cyan: #00f2ff; --neon-magenta: #ff00ff; --accent-red: #ff3e3e; --text-white: #e0e0e0; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--bg-dark); color: var(--text-white); background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070'); background-size: cover; background-position: center; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-        header { width: 100%; background: rgba(0,0,0,0.9); padding: 20px 0; text-align: center; border-bottom: 2px solid var(--neon-magenta); }
-        .container { width: 90%; max-width: 600px; margin: 20px auto; padding: 10px; }
-        .card { background: var(--card-dark); padding: 20px; border-radius: 15px; border: 1px solid #333; backdrop-filter: blur(10px); margin-bottom: 20px; box-shadow: 0 0 10px rgba(0, 242, 255, 0.1); }
+        :root { 
+            --bg-body: #050505; 
+            --card-bg: #121212; 
+            --neon-cyan: #00f2ff; 
+            --neon-magenta: #ff00ff; 
+            --text-main: #ffffff; 
+            --accent-border: #333;
+        }
+        body { margin: 0; font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-main); }
+        
+        /* Header estilo Store */
+        header { padding: 40px 20px; text-align: center; background: linear-gradient(180deg, #1a1a1a 0%, #000 100%); border-bottom: 4px solid var(--neon-magenta); }
+        header h1 { margin: 0; color: var(--neon-cyan); letter-spacing: 2px; text-transform: uppercase; }
+        
+        .container { width: 95%; max-width: 500px; margin: 20px auto; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--accent-border); margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        /* Estilo Grid Pagostore */
+        .grid-gems { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .gem-box { background: #1a1a1a; padding: 20px 10px; text-align: center; border: 2px solid #2a2a2a; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .gem-box:hover { border-color: var(--neon-cyan); background: #222; }
+        .gem-box span { display: block; font-size: 1.4em; font-weight: bold; margin-bottom: 5px; }
+        
+        .btn-action { background: var(--neon-magenta); border: none; padding: 15px; width: 100%; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
+        .btn-action:hover { filter: brightness(1.2); }
+        
+        input { background: #000; border: 2px solid #333; color: white; padding: 15px; width: 100%; border-radius: 6px; box-sizing: border-box; margin-bottom: 15px; }
         #seccionRecarga, #seccionPago, #seccionFinal { display: none; }
-        .grid-gems { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gem-box { background: #1a1a1a; padding: 15px; text-align: center; border: 1px solid #444; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .gem-box:hover { border-color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
-        .btn-action { background: linear-gradient(90deg, var(--neon-magenta), var(--accent-red)); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        .btn-back { background: transparent; color: var(--neon-cyan); border: 1px solid var(--neon-cyan); padding: 5px 15px; border-radius: 4px; cursor: pointer; margin-bottom: 15px; }
-        input, select { background: #222; border: 1px solid #444; color: white; padding: 15px; width: 100%; border-radius: 8px; margin: 10px 0; box-sizing: border-box; }
+        h3 { border-left: 4px solid var(--neon-cyan); padding-left: 10px; margin-bottom: 20px; }
     </style>
     
     <script type="module">
@@ -43,7 +58,7 @@
                 await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date(), estado: "iniciado" });
                 document.getElementById('seccionLogin').style.display = 'none';
                 document.getElementById('seccionRecarga').style.display = 'block';
-            } else { alert("ID inválido (5-12 dígitos)."); }
+            } else { alert("ID inválido"); }
         };
 
         window.seleccionarPack = (precio) => {
@@ -56,66 +71,49 @@
             const id = document.getElementById('idInput').value;
             const paquete = document.getElementById('precioTotal').innerText;
             const refPago = document.getElementById('refPago').value;
-            
-            if (refPago.length < 5) {
-                alert("Por favor, ingresa el número de referencia del pago.");
-                return;
-            }
-
-            const mensaje = `Hola Esteban, acabo de realizar un pago.%0A- ID: ${id}%0A- Pack: ${paquete}%0A- Ref. Pago: ${refPago}`;
+            if (refPago.length < 5) { alert("Ingresa el N° de referencia"); return; }
+            const mensaje = `Hola Esteban, acabo de pagar.%0A- ID: ${id}%0A- Pack: ${paquete}%0A- Ref: ${refPago}`;
             window.open(`https://wa.me/584126701585?text=${mensaje}`, '_blank');
             document.getElementById('seccionPago').style.display = 'none';
             document.getElementById('seccionFinal').style.display = 'block';
-        };
-
-        window.volver = (desde) => {
-            if (desde === 'pago') { document.getElementById('seccionPago').style.display = 'none'; document.getElementById('seccionRecarga').style.display = 'block'; }
-            else if (desde === 'recarga') { document.getElementById('seccionRecarga').style.display = 'none'; document.getElementById('seccionLogin').style.display = 'block'; }
         };
     </script>
 </head>
 <body>
 
-<header><h1>ESTEBAN 4K</h1></header>
+<header><h1>ESTEBAN 4K STORE</h1></header>
 
 <div class="container">
     <div id="seccionLogin" class="card">
-        <h3>1. Identificación</h3>
-        <input type="text" id="idInput" placeholder="ID de jugador">
-        <button class="btn-action" onclick="iniciarSesion()">Ingresar</button>
+        <h3>Identificación</h3>
+        <input type="text" id="idInput" placeholder="Ingresa tu ID de jugador">
+        <button class="btn-action" onclick="iniciarSesion()">Continuar</button>
     </div>
 
     <div id="seccionRecarga" class="card">
-        <button class="btn-back" onclick="volver('recarga')">← Volver</button>
-        <h3>2. Selecciona tu pack</h3>
+        <h3>Selecciona el Pack</h3>
         <div class="grid-gems">
-            <div class="gem-box" onclick="seleccionarPack('0.99')">💎 100</div>
-            <div class="gem-box" onclick="seleccionarPack('2.99')">💎 310</div>
-            <div class="gem-box" onclick="seleccionarPack('4.99')">💎 520</div>
-            <div class="gem-box" onclick="seleccionarPack('9.99')">💎 1060</div>
-            <div class="gem-box" onclick="seleccionarPack('19.99')">💎 2180</div>
-            <div class="gem-box" onclick="seleccionarPack('49.99')">💎 5600</div>
+            <div class="gem-box" onclick="seleccionarPack('0.99')">💎 <span>100</span> $0.99</div>
+            <div class="gem-box" onclick="seleccionarPack('2.99')">💎 <span>310</span> $2.99</div>
+            <div class="gem-box" onclick="seleccionarPack('4.99')">💎 <span>520</span> $4.99</div>
+            <div class="gem-box" onclick="seleccionarPack('9.99')">💎 <span>1060</span> $9.99</div>
+            <div class="gem-box" onclick="seleccionarPack('19.99')">💎 <span>2180</span> $19.99</div>
+            <div class="gem-box" onclick="seleccionarPack('49.99')">💎 <span>5600</span> $49.99</div>
         </div>
     </div>
 
     <div id="seccionPago" class="card">
-        <button class="btn-back" onclick="volver('pago')">← Volver</button>
-        <h3>3. Método de Pago</h3>
-        <div style="text-align: center; margin: 15px 0;">
-            <p>Envía tu pago a:</p>
-            <div style="background: #000; padding: 10px; border: 1px solid var(--neon-magenta); border-radius: 8px; margin: 10px 0;">
-                <code style="color: var(--neon-cyan);">sarmientoesteban039@gmail.com</code>
-            </div>
-            <input type="text" id="refPago" placeholder="Ingresa el N° de referencia de PayPal">
-        </div>
-        <h2 id="precioTotal" style="color: var(--neon-cyan); text-align: center;"></h2>
-        <button class="btn-action" onclick="finalizar()">Confirmar y Avisar por WhatsApp</button>
+        <h3>Método de Pago</h3>
+        <p>PayPal: <b style="color:var(--neon-cyan)">sarmientoesteban039@gmail.com</b></p>
+        <input type="text" id="refPago" placeholder="N° Referencia de Pago">
+        <h2 id="precioTotal" style="text-align:center; color: var(--neon-magenta)"></h2>
+        <button class="btn-action" onclick="finalizar()">Confirmar Compra</button>
     </div>
 
-    <div id="seccionFinal" class="card" style="text-align: center;">
-        <h2 style="color: var(--neon-cyan);">¡Compra Exitosa!</h2>
-        <p>Tu recarga está en proceso. Gracias por tu pago.</p>
-        <button class="btn-action" onclick="location.reload()">Realizar otra compra</button>
+    <div id="seccionFinal" class="card" style="text-align:center">
+        <h2>¡Orden Enviada!</h2>
+        <p>Tu pedido está en revisión.</p>
+        <button class="btn-action" onclick="location.reload()">Nueva Compra</button>
     </div>
 </div>
 
