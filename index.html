@@ -3,23 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esteban 4K | Premium Shop</title>
+    <title>Esteban 4K | iOS Style</title>
     <style>
-        :root { --bg-body: #050505; --card-bg: #121212; --neon-cyan: #00f2ff; --neon-magenta: #ff00ff; --text-main: #ffffff; }
-        body { margin: 0; font-family: sans-serif; background-color: var(--bg-body); color: var(--text-main); }
-        header { padding: 30px; text-align: center; border-bottom: 2px solid var(--neon-magenta); }
-        .container { width: 95%; max-width: 500px; margin: 20px auto; }
-        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; transition: 0.5s; }
+        :root { 
+            --bg-body: #000; 
+            --glass: rgba(255, 255, 255, 0.1); 
+            --ios-blue: #007AFF; 
+            --text-main: #fff; 
+        }
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-body); color: var(--text-main); }
+        .container { width: 90%; max-width: 400px; margin: 50px auto; }
         
-        /* Efecto de Escaneo Real */
-        .scanning { border: 2px solid var(--neon-cyan) !important; box-shadow: 0 0 20px var(--neon-cyan) !important; transform: scale(1.02); }
+        /* Estilo Glassmorphism (Tipo iOS) */
+        .card { 
+            background: var(--glass); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            padding: 25px; 
+            border-radius: 25px; 
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+
+        /* Efecto FaceID */
+        .face-id-pulse { 
+            animation: pulse 1.5s infinite; 
+            border: 2px solid var(--ios-blue) !important; 
+        }
+        @keyframes pulse { 
+            0% { box-shadow: 0 0 0px var(--ios-blue); } 
+            50% { box-shadow: 0 0 20px var(--ios-blue); } 
+            100% { box-shadow: 0 0 0px var(--ios-blue); } 
+        }
+
+        input { background: rgba(255,255,255,0.05); border: none; padding: 15px; width: 100%; border-radius: 12px; color: white; margin: 10px 0; box-sizing: border-box; }
+        .btn-action { background: var(--ios-blue); border: none; padding: 15px; width: 100%; border-radius: 15px; color: white; font-weight: 600; cursor: pointer; margin-top: 10px; }
         
-        .grid-gems { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .gem-box { background: #1a1a1a; padding: 15px; text-align: center; border: 1px solid #333; border-radius: 8px; cursor: pointer; }
-        .gem-box:hover { border-color: var(--neon-cyan); }
-        .btn-action { background: var(--neon-magenta); border: none; padding: 15px; width: 100%; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        input { background: #000; border: 1px solid #555; color: white; padding: 12px; width: 100%; border-radius: 6px; box-sizing: border-box; margin-bottom: 10px; }
-        #seccionRecarga, #seccionPago, #seccionFinal { display: none; }
+        h3 { font-weight: 600; letter-spacing: -0.5px; }
+        #seccionRecarga, #seccionPago { display: none; }
     </style>
     
     <script type="module">
@@ -38,68 +60,55 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Hacemos las funciones globales para que el botón las encuentre
         window.iniciarSesion = async () => {
             const id = document.getElementById('idInput').value;
             const card = document.getElementById('seccionLogin');
-
             if (/^\d{5,12}$/.test(id)) {
-                // ACTIVAR EFECTO
-                card.classList.add('scanning');
-                
-                await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date(), estado: "iniciado" });
-                
+                card.classList.add('face-id-pulse'); // Activa el efecto iOS
+                await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date() });
                 setTimeout(() => {
                     card.style.display = 'none';
                     document.getElementById('seccionRecarga').style.display = 'block';
-                }, 1000); // 1 segundo de escaneo
+                }, 2000);
             } else { alert("ID inválido"); }
         };
 
         window.seleccionarPack = (precio) => {
-            document.getElementById('precioTotal').innerText = "Total: US$ " + precio;
+            document.getElementById('precioTotal').innerText = "Total: $" + precio;
             document.getElementById('seccionRecarga').style.display = 'none';
             document.getElementById('seccionPago').style.display = 'block';
         };
 
         window.finalizar = () => {
-            const id = document.getElementById('idInput').value;
-            const paquete = document.getElementById('precioTotal').innerText;
-            const refPago = document.getElementById('refPago').value;
-            const mensaje = `Hola Esteban, acabo de pagar.%0A- ID: ${id}%0A- Pack: ${paquete}%0A- Ref: ${refPago}`;
-            window.open(`https://wa.me/584126701585?text=${mensaje}`, '_blank');
+            const ref = document.getElementById('refPago').value;
+            if (ref.length < 5) { alert("Ingresa referencia"); return; }
+            window.open(`https://wa.me/584126701585?text=Pago%20de%20referencia:%20${ref}`, '_blank');
         };
     </script>
 </head>
 <body>
 
-<header><h1>ESTEBAN 4K STORE</h1></header>
-
 <div class="container">
     <div id="seccionLogin" class="card">
-        <h3>Identificación</h3>
-        <input type="text" id="idInput" placeholder="Ingresa tu ID">
-        <button class="btn-action" onclick="iniciarSesion()">Escanear ID</button>
+        <h3>Autenticación ID</h3>
+        <input type="text" id="idInput" placeholder="ID de Jugador">
+        <button class="btn-action" onclick="iniciarSesion()">Verificar con FaceID</button>
     </div>
 
     <div id="seccionRecarga" class="card">
         <h3>Selecciona el Pack</h3>
-        <div class="grid-gems">
-            <div class="gem-box" onclick="seleccionarPack('0.99')">💎 100</div>
-            <div class="gem-box" onclick="seleccionarPack('2.99')">💎 310</div>
-            <div class="gem-box" onclick="seleccionarPack('4.99')">💎 520</div>
-            <div class="gem-box" onclick="seleccionarPack('9.99')">💎 1060</div>
-        </div>
+        <div onclick="seleccionarPack('0.99')" style="padding:15px; border-bottom:1px solid #333">💎 100 Diamantes - $0.99</div>
+        <div onclick="seleccionarPack('2.99')" style="padding:15px; border-bottom:1px solid #333">💎 310 Diamantes - $2.99</div>
+        <div onclick="seleccionarPack('4.99')" style="padding:15px;">💎 520 Diamantes - $4.99</div>
     </div>
 
     <div id="seccionPago" class="card">
-        <h3>Método de Pago</h3>
-        <input type="text" id="refPago" placeholder="N° Referencia PayPal">
+        <h3>Pago PayPal</h3>
+        <input type="text" id="refPago" placeholder="N° Referencia">
         <h2 id="precioTotal"></h2>
-        <button class="btn-action" onclick="finalizar()">Confirmar Compra</button>
+        <button class="btn-action" onclick="finalizar()">Pagar</button>
     </div>
 </div>
 
 </body>
 </html>
-
