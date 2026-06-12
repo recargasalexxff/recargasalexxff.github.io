@@ -6,19 +6,36 @@
     <title>Esteban 4K | iOS Light Pro</title>
     <style>
         :root { 
-            --bg-color: #F2F2F7; /* Gris muy claro, casi blanco */
-            --glass-bg: rgba(255, 255, 255, 0.8); /* Vidrio blanco */
-            --ios-blue: #007AFF; /* Azul iOS */
+            --bg-color: #F2F2F7;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --ios-blue: #007AFF;
+            --ios-red: #FF3B30;
             --text-main: #000000;
+            --text-secondary: #8E8E93;
         }
+        
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
         body { 
             margin: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif; 
             background-color: var(--bg-color); 
             color: var(--text-main);
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            padding: 20px;
         }
-        .container { width: 90%; max-width: 400px; }
+
+        .container { 
+            width: 100%; 
+            max-width: 400px; 
+        }
+
         .card { 
             background: var(--glass-bg); 
             backdrop-filter: blur(20px); 
@@ -26,103 +43,190 @@
             padding: 25px; 
             border-radius: 30px; 
             border: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            display: none; /* Ocultos por defecto, manejados por JS */
         }
         
-        /* BOTÓN ESTILO iOS DOCK (VIDRIO REDONDEADO) */
+        .card.active {
+            display: block;
+            animation: iosSlide 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        h3 {
+            margin-top: 0;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
         .ios-button-style { 
             background: rgba(0, 0, 0, 0.05); 
-            backdrop-filter: blur(10px);
             border: none;
-            padding: 18px; 
+            padding: 16px; 
             width: 100%; 
-            border-radius: 25px; 
+            border-radius: 16px; 
             color: var(--ios-blue); 
             font-weight: 600; 
+            font-size: 17px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
+            margin-top: 12px;
             text-align: center;
         }
-        .ios-button-style:active { transform: scale(0.97); opacity: 0.7; }
-        .ios-button-style.primary { background: var(--ios-blue); color: white; }
-
-        input { 
-            background: rgba(0,0,0,0.03); 
-            border: none; padding: 18px; width: 100%; 
-            border-radius: 20px; color: black; box-sizing: border-box;
+        
+        .ios-button-style:active { 
+            transform: scale(0.96); 
+            opacity: 0.8; 
         }
         
-        #seccionRecarga, #seccionPago, #seccionFinal { display: none; }
+        .ios-button-style.primary { 
+            background: var(--ios-blue); 
+            color: white; 
+        }
+
+        .ios-button-style.danger { 
+            color: var(--ios-red); 
+        }
+
+        input { 
+            background: rgba(0,0,0,0.04); 
+            border: 2px solid transparent;
+            padding: 16px; 
+            width: 100%; 
+            border-radius: 16px; 
+            color: var(--text-main); 
+            font-size: 16px;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--ios-blue);
+            background: #ffffff;
+        }
+        
         .gem-option { 
-            background: rgba(0,0,0,0.03); padding: 20px; border-radius: 20px; 
-            margin-bottom: 10px; cursor: pointer; display: flex; justify-content: space-between;
+            background: rgba(0,0,0,0.04); 
+            padding: 18px; 
+            border-radius: 16px; 
+            margin-bottom: 12px; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .gem-option:active {
+            transform: scale(0.98);
+            background: rgba(0,0,0,0.08);
+        }
+
+        .gem-option span {
+            color: var(--text-secondary);
+        }
+
+        /* Animación suave estilo iOS */
+        @keyframes iosSlide {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCWLQaTQXt6DFHHf1S_-shcNdIaLpwXeoo",
-            authDomain: "esteban-4k.firebaseapp.com",
-            projectId: "esteban-4k",
-            storageBucket: "esteban-4k.firebasestorage.app",
-            messagingSenderId: "319790003304",
-            appId: "1:319790003304:web:b84b2458213686b3e0b7dd"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.iniciarSesion = async () => {
-            const id = document.getElementById('idInput').value;
-            const card = document.getElementById('seccionLogin');
-            if (/^\d{5,12}$/.test(id)) {
-                card.style.border = "2px solid var(--ios-blue)";
-                await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date() });
-                setTimeout(() => { card.style.display = 'none'; document.getElementById('seccionRecarga').style.display = 'block'; }, 1000);
-            } else { alert("ID Inválido"); }
-        };
-
-        window.seleccionarPack = (p) => {
-            document.getElementById('precioTotal').innerText = "Total: " + p;
-            document.getElementById('seccionRecarga').style.display = 'none';
-            document.getElementById('seccionPago').style.display = 'block';
-        };
-
-        window.finalizar = () => {
-            const ref = document.getElementById('refPago').value;
-            if (ref.length < 5) return alert("Referencia necesaria");
-            window.open(`https://wa.me/584126701585?text=Pago%20ref:%20${ref}`, '_blank');
-        };
-    </script>
 </head>
 <body>
 
 <div class="container">
-    <div id="seccionLogin" class="card">
+    <!-- SECCIÓN LOGIN -->
+    <div id="seccionLogin" class="card active">
         <h3>Identificación</h3>
-        <input type="text" id="idInput" placeholder="ID de Jugador">
-        <button class="ios-button-style primary" onclick="iniciarSesion()">Verificar Identidad</button>
+        <input type="text" id="idInput" placeholder="ID de Jugador" inputmode="numeric">
+        <button class="ios-button-style primary" id="btnLogin">Verificar Identidad</button>
     </div>
 
+    <!-- SECCIÓN RECARGA -->
     <div id="seccionRecarga" class="card">
         <h3>Selecciona Pack</h3>
-        <div class="gem-option" onclick="seleccionarPack('$0.99')">💎 100 <span>$0.99</span></div>
-        <div class="gem-option" onclick="seleccionarPack('$2.99')">💎 310 <span>$2.99</span></div>
+        <div class="gem-option" data-precio="$0.99">💎 100 <span>$0.99</span></div>
+        <div class="gem-option" data-precio="$2.99">💎 310 <span>$2.99</span></div>
+        <button class="ios-button-style danger" id="btnAtrasRecarga">Atrás</button>
     </div>
 
+    <!-- SECCIÓN PAGO -->
     <div id="seccionPago" class="card">
         <h3>Pago Seguro</h3>
-        <input type="text" id="refPago" placeholder="N° Referencia">
-        <h2 id="precioTotal" style="text-align:center"></h2>
-        <button class="ios-button-style primary" onclick="finalizar()">Confirmar Pago</button>
-        <button class="ios-button-style" onclick="location.reload()">Cancelar</button>
+        <input type="text" id="refPago" placeholder="N° Referencia" inputmode="numeric">
+        <h2 id="precioTotal" style="text-align:center; margin: 20px 0;"></h2>
+        <button class="ios-button-style primary" id="btnFinalizar">Confirmar Pago</button>
+        <button class="ios-button-style danger" id="btnCancelar">Cancelar</button>
     </div>
 </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    // NOTA: Tus credenciales de Firebase están expuestas en el cliente. 
+    // Asegúrate de configurar las Reglas de Seguridad en tu consola de Firebase.
+    const firebaseConfig = {
+        apiKey: "AIzaSyCWLQaTQXt6DFHHf1S_-shcNdIaLpwXeoo",
+        authDomain: "esteban-4k.firebaseapp.com",
+        projectId: "esteban-4k",
+        storageBucket: "esteban-4k.firebasestorage.app",
+        messagingSenderId: "319790003304",
+        appId: "1:319790003304:web:b84b2458213686b3e0b7dd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Navegación limpia entre pantallas
+    const cambiarPantalla = (pantallaOcultar, pantallaMostrar) => {
+        document.getElementById(pantallaOcultar).classList.remove('active');
+        document.getElementById(pantallaMostrar).classList.add('active');
+    };
+
+    // Lógica: Iniciar Sesión
+    document.getElementById('btnLogin').addEventListener('click', async () => {
+        const idInput = document.getElementById('idInput');
+        const id = idInput.value.trim();
+
+        if (/^\d{5,12}$/.test(id)) {
+            try {
+                // Registro en Firebase
+                await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date() });
+                cambiarPantalla('seccionLogin', 'seccionRecarga');
+            } catch (error) {
+                alert("Error de conexión. Inténtalo de nuevo.");
+                console.error(error);
+            }
+        } else { 
+            alert("ID Inválido. Debe tener entre 5 y 12 números."); 
+        }
+    });
+
+    // Lógica: Seleccionar Pack
+    document.querySelectorAll('.gem-option').forEach(element => {
+        element.addEventListener('click', () => {
+            const precio = element.getAttribute('data-precio');
+            document.getElementById('precioTotal').innerText = "Total: " + precio;
+            cambiarPantalla('seccionRecarga', 'seccionPago');
+        });
+    });
+
+    // Lógica: Finalizar Pago
+    document.getElementById('btnFinalizar').addEventListener('click', () => {
+        const ref = document.getElementById('refPago').value.trim();
+        if (ref.length < 5) {
+            return alert("Por favor, ingresa una referencia válida (mínimo 5 caracteres).");
+        }
+        
+        const mensajeWhatsApp = encodeURIComponent(`Hola, realicé un pago. Ref: ${ref}`);
+        window.open(`https://wa.me{mensajeWhatsApp}`, '_blank');
+    });
+
+    // Botones de navegación de regreso
+    document.getElementById('btnAtrasRecarga').addEventListener('click', () => cambiarPantalla('seccionRecarga', 'seccionLogin'));
+    document.getElementById('btnCancelar').addEventListener('click', () => cambiarPantalla('seccionPago', 'seccionRecarga'));
+</script>
 
 </body>
 </html>
