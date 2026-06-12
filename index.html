@@ -5,27 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esteban 4K | Premium Shop</title>
     <style>
-        :root { 
-            --bg-body: #050505; --card-bg: #121212; 
-            --neon-cyan: #00f2ff; --neon-magenta: #ff00ff; 
-            --text-main: #ffffff; --accent-border: #333;
-        }
-        body { margin: 0; font-family: 'Roboto', sans-serif; background-color: var(--bg-body); color: var(--text-main); }
-        header { padding: 40px 20px; text-align: center; background: linear-gradient(180deg, #1a1a1a 0%, #000 100%); border-bottom: 4px solid var(--neon-magenta); }
-        header h1 { margin: 0; color: var(--neon-cyan); letter-spacing: 2px; text-transform: uppercase; }
+        :root { --bg-body: #050505; --card-bg: #121212; --neon-cyan: #00f2ff; --neon-magenta: #ff00ff; --text-main: #ffffff; }
+        body { margin: 0; font-family: sans-serif; background-color: var(--bg-body); color: var(--text-main); }
+        header { padding: 30px; text-align: center; border-bottom: 2px solid var(--neon-magenta); }
         .container { width: 95%; max-width: 500px; margin: 20px auto; }
-        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--accent-border); margin-bottom: 20px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid #333; margin-bottom: 20px; transition: 0.5s; }
         
-        /* Efecto de escaneo */
-        .scanning { border: 2px solid var(--neon-cyan) !important; box-shadow: 0 0 20px var(--neon-cyan) !important; transition: 0.5s; }
+        /* Efecto de Escaneo Real */
+        .scanning { border: 2px solid var(--neon-cyan) !important; box-shadow: 0 0 20px var(--neon-cyan) !important; transform: scale(1.02); }
         
-        .grid-gems { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .gem-box { background: #1a1a1a; padding: 20px 10px; text-align: center; border: 2px solid #2a2a2a; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .gem-box:hover { border-color: var(--neon-cyan); background: #222; }
-        .gem-box span { display: block; font-size: 1.4em; font-weight: bold; }
-        
-        .btn-action { background: var(--neon-magenta); border: none; padding: 15px; width: 100%; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
-        input { background: #000; border: 2px solid #333; color: white; padding: 15px; width: 100%; border-radius: 6px; box-sizing: border-box; margin-bottom: 15px; }
+        .grid-gems { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .gem-box { background: #1a1a1a; padding: 15px; text-align: center; border: 1px solid #333; border-radius: 8px; cursor: pointer; }
+        .gem-box:hover { border-color: var(--neon-cyan); }
+        .btn-action { background: var(--neon-magenta); border: none; padding: 15px; width: 100%; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        input { background: #000; border: 1px solid #555; color: white; padding: 12px; width: 100%; border-radius: 6px; box-sizing: border-box; margin-bottom: 10px; }
         #seccionRecarga, #seccionPago, #seccionFinal { display: none; }
     </style>
     
@@ -45,23 +38,21 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Hacemos las funciones globales para que el botón las encuentre
         window.iniciarSesion = async () => {
-            const idInput = document.getElementById('idInput');
+            const id = document.getElementById('idInput').value;
             const card = document.getElementById('seccionLogin');
-            const id = idInput.value;
 
             if (/^\d{5,12}$/.test(id)) {
-                // Efecto de escaneo
+                // ACTIVAR EFECTO
                 card.classList.add('scanning');
-                idInput.disabled = true;
                 
                 await addDoc(collection(db, "jugadores"), { id: id, fecha: new Date(), estado: "iniciado" });
                 
-                // Espera 1.5 segundos para simular el "escaneo facial"
                 setTimeout(() => {
-                    document.getElementById('seccionLogin').style.display = 'none';
+                    card.style.display = 'none';
                     document.getElementById('seccionRecarga').style.display = 'block';
-                }, 1500);
+                }, 1000); // 1 segundo de escaneo
             } else { alert("ID inválido"); }
         };
 
@@ -75,11 +66,8 @@
             const id = document.getElementById('idInput').value;
             const paquete = document.getElementById('precioTotal').innerText;
             const refPago = document.getElementById('refPago').value;
-            if (refPago.length < 5) { alert("Ingresa el N° de referencia"); return; }
             const mensaje = `Hola Esteban, acabo de pagar.%0A- ID: ${id}%0A- Pack: ${paquete}%0A- Ref: ${refPago}`;
             window.open(`https://wa.me/584126701585?text=${mensaje}`, '_blank');
-            document.getElementById('seccionPago').style.display = 'none';
-            document.getElementById('seccionFinal').style.display = 'block';
         };
     </script>
 </head>
@@ -89,7 +77,7 @@
 
 <div class="container">
     <div id="seccionLogin" class="card">
-        <h3>Identificación de Jugador</h3>
+        <h3>Identificación</h3>
         <input type="text" id="idInput" placeholder="Ingresa tu ID">
         <button class="btn-action" onclick="iniciarSesion()">Escanear ID</button>
     </div>
@@ -97,27 +85,18 @@
     <div id="seccionRecarga" class="card">
         <h3>Selecciona el Pack</h3>
         <div class="grid-gems">
-            <div class="gem-box" onclick="seleccionarPack('0.99')">💎 <span>100</span> $0.99</div>
-            <div class="gem-box" onclick="seleccionarPack('2.99')">💎 <span>310</span> $2.99</div>
-            <div class="gem-box" onclick="seleccionarPack('4.99')">💎 <span>520</span> $4.99</div>
-            <div class="gem-box" onclick="seleccionarPack('9.99')">💎 <span>1060</span> $9.99</div>
-            <div class="gem-box" onclick="seleccionarPack('19.99')">💎 <span>2180</span> $19.99</div>
-            <div class="gem-box" onclick="seleccionarPack('49.99')">💎 <span>5600</span> $49.99</div>
+            <div class="gem-box" onclick="seleccionarPack('0.99')">💎 100</div>
+            <div class="gem-box" onclick="seleccionarPack('2.99')">💎 310</div>
+            <div class="gem-box" onclick="seleccionarPack('4.99')">💎 520</div>
+            <div class="gem-box" onclick="seleccionarPack('9.99')">💎 1060</div>
         </div>
     </div>
 
     <div id="seccionPago" class="card">
         <h3>Método de Pago</h3>
-        <p>PayPal: <b style="color:var(--neon-cyan)">sarmientoesteban039@gmail.com</b></p>
-        <input type="text" id="refPago" placeholder="N° Referencia de Pago">
-        <h2 id="precioTotal" style="text-align:center; color: var(--neon-magenta)"></h2>
+        <input type="text" id="refPago" placeholder="N° Referencia PayPal">
+        <h2 id="precioTotal"></h2>
         <button class="btn-action" onclick="finalizar()">Confirmar Compra</button>
-    </div>
-
-    <div id="seccionFinal" class="card" style="text-align:center">
-        <h2>¡Orden Enviada!</h2>
-        <p>Tu pedido está en revisión.</p>
-        <button class="btn-action" onclick="location.reload()">Nueva Compra</button>
     </div>
 </div>
 
