@@ -292,7 +292,7 @@
 </div>
 
 <script>
-    const tasaDolarHoy = 790; 
+    const tasaDolarHoy = 800; 
     const tuNumeroWhatsApp = "584126701585"; 
 
     const firebaseConfig = {
@@ -330,8 +330,8 @@
         const cardLogin = document.getElementById('seccionLogin');
         jugadorId = idInput.value.trim();
 
-        if (!/^\d{5,12}$/.test(jugadorId)) {
-            return alert("ID Inválido. Debe tener entre 5 y 12 números.");
+        if (!/^\d{8,12}$/.test(jugadorId)) {
+            return alert("ID Inválido. Debe tener entre 8 y 12 números.");
         }
 
         cardLogin.classList.add('verificando');
