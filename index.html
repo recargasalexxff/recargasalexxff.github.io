@@ -198,13 +198,13 @@
         <button class="ios-button-style" id="btnLogin">Verificar UID</button>
     </div>
 
-    <!-- PANTALLA 2: SELECCIÓN DE PACK -->
+    <!-- PANTALLA 2: SELECCIÓN DE PACK (CORREGIDO DATA-PRECIO) -->
     <div id="seccionRecarga" class="card">
         <h3>Selecciona Pack</h3>
         <div class="gem-option" data-precio="$0.99">💎 100 <span>$0.99</span></div>
         <div class="gem-option" data-precio="$2.99">💎 310 <span>$2.99</span></div>
-        <div class="gem-option" data-precio="$2.99">💎 520 <span>$4.99</span></div>
-        <div class="gem-option" data-precio="$2.99">💎 1060 <span>$9.99</span></div>
+        <div class="gem-option" data-precio="$4.99">💎 520 <span>$4.99</span></div>
+        <div class="gem-option" data-precio="$9.99">💎 1060 <span>$9.99</span></div>
         <button class="ios-button-style danger" id="btnAtrasRecarga">Atrás</button>
     </div>
 
@@ -448,7 +448,15 @@
 
             document.getElementById('t-nombre').innerText = "⚔️ " + jugadorNombre;
             document.getElementById('t-id').innerText = jugadorId;
-            document.getElementById('t-pack').innerText = (precioSeleccionado === "$0.99") ? "💎 100 Diamantes" : "💎 310 Diamantes";
+
+            // LÓGICA DINÁMICA DE DETECCIÓN DE PACK CORREGIDA 💎
+            let textoPack = "💎 Diamantes";
+            if (precioSeleccionado === "$0.99") textoPack = "💎 100 Diamantes";
+            else if (precioSeleccionado === "$2.99") textoPack = "💎 310 Diamantes";
+            else if (precioSeleccionado === "$4.99") textoPack = "💎 520 Diamantes";
+            else if (precioSeleccionado === "$9.99") textoPack = "💎 1060 Diamantes";
+
+            document.getElementById('t-pack').innerText = textoPack;
             document.getElementById('t-metodo').innerText = metodoSeleccionado;
             document.getElementById('t-monto').innerText = montoFinalTexto;
             document.getElementById('t-ref').innerText = referenciaIngresada;
