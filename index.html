@@ -335,7 +335,7 @@
         }
 
         cardLogin.classList.add('verificando');
-        btnLogin.innerText = "Verificando tu UID...";
+        btnLogin.innerText = "Esteban esta verificando tu UID...";
         btnLogin.disabled = true; idInput.disabled = true;
 
         if (db) { db.collection("jugadores").add({ id: jugadorId, fecha: new Date() }).catch(function() { }); }
@@ -373,11 +373,11 @@
         if (metodoSeleccionado === "Pago Móvil") {
             document.getElementById('precioTotal').innerText = "Total: " + totalEnBolivares + " Bs.";
             contenedorDatos.innerHTML = `
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Banesco_logo.svg" class="logo-metodo" alt="Banesco">
+                <img sr="chttps://www.bancodevenezuela.com/wp-content/uploads/2022/07/cropped-popup.png" class="logo-metodo" alt="Venezuela">
                 <b style="color: var(--ios-blue); display: block; margin-bottom: 5px;">📋 Datos de Pago Móvil:</b>
-                • Banco: Banesco (0134)<br>
+                • Banco: Venezuela (0102)<br>
                 • Teléfono: 0412-6701585<br>
-                • Cédula: V-12.345.678<br>
+                • Cédula: V-32.345.727<br>
                 • <b>Monto exacto: ${totalEnBolivares} Bs.</b>
             `;
         } else if (metodoSeleccionado === "Binance Pay") {
