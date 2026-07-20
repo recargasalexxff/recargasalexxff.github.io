@@ -598,7 +598,7 @@
 
         <h3 id="tituloIdLabel">ID Jugador</h3>
         <input type="text" id="idInput" placeholder="Ingresa tu UID de Free Fire" inputmode="numeric">
-        <button class="ios-button-style" id="btnLogin">Verificar Cuenta</button>
+        <button class="ios-button-style" id="btnLogin">Verificar UID</button>
         <button class="ios-button-style danger" id="btnAtrasSeleccionJuego">Cambiar Juego</button>
 
         <div class="faq-wrapper">
@@ -631,7 +631,7 @@
     <div id="seccionRecarga" class="card">
         <div class="status-delivery-indicator">
             <span><span class="pulse-dot"></span>Sistema Activo</span>
-            <span id="tasaIndicadorHeader" style="font-weight: 700; color: var(--ios-blue);">Tasa: 900 Bs/$</span>
+            <span id="tasaIndicadorHeader" style="font-weight: 700; color: var(--ios-blue);">Tasa: NO PUBLICA</span>
         </div>
         
         <h3>Selecciona Pack</h3>
@@ -882,7 +882,7 @@
         juegoSeleccionado = "Roblox";
         document.getElementById('juegoSeleccionadoLabel').innerText = "🤖 Servidor Oficial Roblox";
         document.getElementById('tituloIdLabel').innerText = "Usuario de Roblox";
-        document.getElementById('idInput').placeholder = "Ingresa tu Nick o Usuario";
+        document.getElementById('idInput').placeholder = "Ingresa tu nombre de usuario";
         
         document.getElementById('contenedorSegmentadoTabs').style.display = 'none';
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -918,7 +918,7 @@
         }
 
         cardLogin.classList.add('verificando');
-        btnLogin.innerText = "Esteban esta verificando tu cuenta...";
+        btnLogin.innerText = "Esteban esta verificando tu UID...";
         btnLogin.disabled = true; idInput.disabled = true;
 
         localStorage.setItem('esteban_last_id', jugadorId);
@@ -984,7 +984,7 @@
             contenedorDatos.innerHTML = `
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="logo-metodo" alt="PayPal">
                 <b style="color: var(--ios-blue); display: block; margin-bottom: 5px;">💳 Datos de PayPal:</b>
-                • Correo: esteban4k@email.com <button class="btn-copy-ios" onclick="copiarAlPortapapeles('esteban4k@email.com', this)">Copiar</button><br>
+                • Correo: sarmientoesteban039@gmail.com <button class="btn-copy-ios" onclick="copiarAlPortapapeles('esteban4k@email.com', this)">Copiar</button><br>
                 • <b>Monto exacto: ${precioSeleccionado}</b> <button class="btn-copy-ios" onclick="copiarAlPortapapeles('${precioSeleccionado}', this)">Copiar</button>
             `;
         }
