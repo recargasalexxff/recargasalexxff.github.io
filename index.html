@@ -39,21 +39,22 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* 🎮 MARCA DE AGUA DE GARENA FREE FIRE ULTRA CLARITO 🎮 */
+ 
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3SUD9dVw0iDXRZVOUQhhFckM29RzOD7AEUw&s'); 
+            background-image: url('https://media.tycsports.com/files/2026/02/26/927044/roblox-o-free-fire_640x640.webp'); 
             background-size: cover;
+            background-repeat: no-repeat;
             background-position: center;
+            background-color: #000000;
             opacity: 0.35; 
             filter: blur(2px);
             z-index: -1;
             pointer-events: none;
         }
-
+        
         #particles-container {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -76,7 +77,6 @@
             width: 100%; max-width: 400px; position: relative; z-index: 1;
         }
 
-        /* 💧 CONTENEDOR PRINCIPAL - CRISTAL LÍQUIDO ULTRA TRANSPARENTE 💧 */
         .card { 
             background: var(--glass-bg); 
             backdrop-filter: blur(45px); 
@@ -140,7 +140,6 @@
         
         .ios-button-style:disabled { background: rgba(0,0,0,0.1); color: #8E8E93; cursor: not-allowed; box-shadow: none; border: none; }
 
-        /* 💧 ENTRADAS Y SELECTS TRANSPARENTES 💧 */
         input, select { 
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)); 
             backdrop-filter: blur(15px);
@@ -163,7 +162,6 @@
         }
         input:disabled, select:disabled { background: rgba(0,0,0,0.02); color: #8E8E93; }
 
-        /* 📱 CINTILLO STATUS EN LINEA 📱 */
         .status-delivery-indicator {
             background: rgba(255, 255, 255, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -174,13 +172,16 @@
             color: var(--text-secondary);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between;
+            width: 100%;
             margin-bottom: 14px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
         .pulse-dot {
             width: 7px; height: 7px; background-color: var(--ios-green); border-radius: 50%;
             animation: pulseFade 1.6s infinite ease-in-out;
+            display: inline-block;
+            margin-right: 6px;
         }
         @keyframes pulseFade {
             0% { opacity: 0.3; transform: scale(0.9); }
@@ -188,7 +189,48 @@
             100% { opacity: 0.3; transform: scale(0.9); }
         }
 
-        /* 📱 SELECTOR DE PESTAÑAS SEGMENTADO ESTILO IOS 📱 */
+        .game-choice-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .game-choice-btn {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.15));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), inset 0 2px 6px rgba(255,255,255,0.4);
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--text-main);
+        }
+        .game-choice-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+            border-color: var(--ios-blue);
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.1), inset 0 2px 6px rgba(255,255,255,0.6);
+            transform: scale(1.02);
+        }
+        .game-choice-btn:active { transform: scale(0.97); }
+        
+        .game-icon-box {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.5);
+            flex-shrink: 0;
+        }
+        .game-icon-box img { width: 100%; height: 100%; object-fit: cover; }
+
         .ios-segmented-control {
             display: flex;
             background: rgba(0, 0, 0, 0.05);
@@ -232,7 +274,6 @@
         .tab-panel::-webkit-scrollbar { width: 4px; }
         .tab-panel::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
 
-        /* 💧 BOTONES DE RECARGA CON CRISTAL LÍQUIDO INVISIBLE 💧 */
         .gem-option { 
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.1)); 
             backdrop-filter: blur(20px);
@@ -243,9 +284,7 @@
             border-left: 1px solid rgba(255, 255, 255, 0.4);
             border-right: 1px solid rgba(255, 255, 255, 0.15);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.01), 
-                inset 0 4px 8px rgba(255, 255, 255, 0.4); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01), inset 0 4px 8px rgba(255, 255, 255, 0.4); 
             cursor: pointer; 
             display: flex; 
             justify-content: space-between; 
@@ -267,18 +306,14 @@
             transition: 0.7s;
             opacity: 0;
         }
-
         .gem-option:hover::after { left: 110%; opacity: 1; }
 
         .gem-option:hover {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
             border-top-color: rgba(0, 122, 255, 0.3);
-            box-shadow: 
-                0 8px 20px rgba(0, 122, 255, 0.04),
-                inset 0 4px 8px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.04), inset 0 4px 8px rgba(255, 255, 255, 0.5);
         }
 
-        /* ✨ ANIMACIÓN HÁPTICA BOUNCE AL PULSAR UN PACK ✨ */
         .gem-option.pulsado { 
             transform: scale(0.94) cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             background: rgba(255, 255, 255, 0.6);
@@ -303,7 +338,6 @@
             box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
-        /* 💧 BLOQUES DE DATOS Y RECIBOS TRANSPARENTES 💧 */
         .ticket-box, .datos-pago-box {
             background: var(--glass-inner);
             backdrop-filter: blur(10px);
@@ -321,7 +355,6 @@
 
         .datos-pago-box { margin-bottom: 15px; margin-top: 0; text-align: left; line-height: 1.6; font-size: 14px; color: var(--text-secondary); position: relative; overflow: hidden; }
 
-        /* 📋 BOTONES MINI COPY STYLE IOS 📋 */
         .btn-copy-ios {
             background: rgba(0, 122, 255, 0.1);
             color: var(--ios-blue);
@@ -361,9 +394,26 @@
             opacity: 0.85; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
         }
 
-        /* 💬 MÓDULO PREGUNTAS FRECUENTES (FAQ) STYLE IOS 💬 */
+        .testimonials-box {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+        .testimonial-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
         .faq-wrapper {
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: left;
             width: 100%;
         }
@@ -403,9 +453,7 @@
             color: var(--ios-blue);
             transition: transform 0.2s;
         }
-        .faq-item.open .faq-trigger::after {
-            content: '－';
-        }
+        .faq-item.open .faq-trigger::after { content: '－'; }
         .faq-content {
             max-height: 0;
             overflow: hidden;
@@ -415,11 +463,8 @@
             line-height: 1.5;
             color: var(--text-secondary);
         }
-        .faq-item.open .faq-content {
-            padding-bottom: 14px;
-        }
+        .faq-item.open .faq-content { padding-bottom: 14px; }
 
-        /* ⭐ MÓDULO DE VALORACIÓN ⭐ */
         .stars-wrapper {
             display: flex; justify-content: center; gap: 12px; margin: 25px 0; direction: rtl;
         }
@@ -446,7 +491,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* 🔥 SISTERMA DE NOTIFICACIONES "HYPE EN VIVO" ESTILO IOS 🔥 */
         #notification-hype-box {
             position: fixed;
             bottom: -100px;
@@ -467,10 +511,7 @@
             opacity: 0;
             pointer-events: none;
         }
-        #notification-hype-box.show {
-            bottom: 20px;
-            opacity: 1;
-        }
+        #notification-hype-box.show { bottom: 20px; opacity: 1; }
         .hype-icon {
             font-size: 24px;
             background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 149, 0, 0.05));
@@ -478,19 +519,20 @@
             width: 40px; height: 40px;
             display: flex; align-items: center; justify-content: center;
         }
-        .hype-text-wrapper {
-            display: flex; flex-direction: column; text-align: left;
-        }
-        .hype-user {
-            font-size: 13px; font-weight: 700; color: var(--text-main); margin: 0;
-        }
-        .hype-desc {
-            font-size: 12px; color: var(--text-secondary); margin: 2px 0 0 0; font-weight: 500;
-        }
+        .hype-text-wrapper { display: flex; flex-direction: column; text-align: left; }
+        .hype-user { font-size: 13px; font-weight: 700; color: var(--text-main); margin: 0; }
+        .hype-desc { font-size: 12px; color: var(--text-secondary); margin: 2px 0 0 0; font-weight: 500; }
     </style>
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- SDK de EmailJS para el envío automático de correos -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("vB5ITOBQ6CTQWKeWx"); // Reemplaza con tu clave pública de EmailJS
+        })();
+    </script>
 </head>
 
 <body>
@@ -506,10 +548,58 @@
 </div>
 
 <div class="container">
-    <div id="seccionLogin" class="card active">
-        <h3>ID Jugador</h3>
-        <input type="text" id="idInput" placeholder="ID de Jugador" inputmode="numeric">
-        <button class="ios-button-style" id="btnLogin">Verificar UID</button>
+    <!-- PANTALLA INICIAL: SELECCIÓN DE JUEGO -->
+    <div id="seccionSeleccionJuego" class="card active">
+        <div class="status-delivery-indicator">
+            <span>⚡ Tienda Esteban 4K</span>
+            <span>⭐ 4.9/5 (1.4k recargas)</span>
+        </div>
+
+        <h3>Selecciona el Juego</h3>
+        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 15px; font-weight: 500;">¿Qué deseas recargar hoy?</p>
+
+        <div class="game-choice-grid">
+            <button class="game-choice-btn" id="btnElegirFreeFire">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="game-icon-box">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS955I9vtTj5rMaQ7J9rtQ54WkgUlmhCkY5vnlNtaHDxpVAgiyof0r1PNM&s=10" alt="Free Fire">
+                    </div>
+                    <span>Free Fire</span>
+                </div>
+                <span style="color: var(--ios-blue); font-size: 18px;">›</span>
+            </button>
+
+            <button class="game-choice-btn" id="btnElegirRoblox">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="game-icon-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Roblox_Logo_2025.png" alt="Roblox">
+                    </div>
+                    <span>Roblox</span>
+                </div>
+                <span style="color: var(--ios-blue); font-size: 18px;">›</span>
+            </button>
+        </div>
+
+        <div class="testimonials-box" style="margin-top: 20px;">
+            <div class="testimonial-header">
+                <span>⚡ Carlos M.</span>
+                <span style="color: #FFCC00;">★★★★★</span>
+            </div>
+            <p style="margin: 0; font-size: 12px;">"Atención súper rápida y segura. ¡Totalmente recomendado!"</p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN LOGIN / UID -->
+    <div id="seccionLogin" class="card">
+        <div class="status-delivery-indicator">
+            <span id="juegoSeleccionadoLabel">🛡️ Servidor Oficial LATAM</span>
+            <span>⭐ 4.9/5</span>
+        </div>
+
+        <h3 id="tituloIdLabel">ID Jugador</h3>
+        <input type="text" id="idInput" placeholder="Ingresa tu UID de Free Fire" inputmode="numeric">
+        <button class="ios-button-style" id="btnLogin">Verificar Cuenta</button>
+        <button class="ios-button-style danger" id="btnAtrasSeleccionJuego">Cambiar Juego</button>
 
         <div class="faq-wrapper">
             <div class="faq-title">Preguntas Frecuentes</div>
@@ -524,7 +614,7 @@
             <div class="faq-item">
                 <button class="faq-trigger" onclick="toggleFaq(this)">¿Es seguro o hay riesgo de baneo?</button>
                 <div class="faq-content">
-                    <p style="margin:0;">Es 100% seguro. Las recargas se hacen directamente mediante tu ID por los canales oficiales de Garena, cero riesgo de baneo.</p>
+                    <p style="margin:0;">Es 100% seguro. Las recargas se hacen directamente por los canales oficiales, cero riesgo.</p>
                 </div>
             </div>
 
@@ -537,15 +627,16 @@
         </div>
     </div>
 
+    <!-- SECCIÓN RECARGA -->
     <div id="seccionRecarga" class="card">
         <div class="status-delivery-indicator">
-            <span class="pulse-dot"></span>
-            <span>Sistema Activo — Entrega en 5 min</span>
+            <span><span class="pulse-dot"></span>Sistema Activo</span>
+            <span id="tasaIndicadorHeader" style="font-weight: 700; color: var(--ios-blue);">Tasa: 900 Bs/$</span>
         </div>
         
         <h3>Selecciona Pack</h3>
         
-        <div class="ios-segmented-control">
+        <div class="ios-segmented-control" id="contenedorSegmentadoTabs">
             <button class="segment-btn active" id="tabDiamantes">💎 Diamantes</button>
             <button class="segment-btn" id="tabTarjetas">🎫 Tarjetas</button>
             <button class="segment-btn" id="tabPase">📈 Pase Nivel</button>
@@ -553,19 +644,19 @@
 
         <div class="gem-container-ios">
             <div id="panelDiamantes" class="tab-panel active">
-                <div class="gem-option" data-pack="💎 100 Diamantes" data-precio="$0.99">
+                <div class="gem-option" data-pack="💎 110 Diamantes" data-precio="$0.99">
                     <div class="amount-box">💎 110</div>
                     <div class="price-badge-ios">$0.99</div>
                 </div>
-                <div class="gem-option" data-pack="💎 310 Diamantes" data-precio="$2.99">
+                <div class="gem-option" data-pack="💎 372 Diamantes" data-precio="$2.99">
                     <div class="amount-box">💎 372</div>
                     <div class="price-badge-ios">$2.99</div>
                 </div>
-                <div class="gem-option" data-pack="💎 520 Diamantes" data-precio="$4.99">
+                <div class="gem-option" data-pack="💎 572 Diamantes" data-precio="$4.99">
                     <div class="amount-box">💎 572</div>
                     <div class="price-badge-ios">$4.99</div>
                 </div>
-                <div class="gem-option" data-pack="💎 1060 Diamantes" data-precio="$9.99">
+                <div class="gem-option" data-pack="💎 1166 Diamantes" data-precio="$9.99">
                     <div class="amount-box">💎 1166</div>
                     <div class="price-badge-ios">$9.99</div>
                 </div>
@@ -595,27 +686,35 @@
                     <div class="amount-box">📈 Pase Nivel 10</div>
                     <div class="price-badge-ios">$1.49</div>
                 </div>
-                <div class="gem-option" data-pack="📈 Pase Nivel 15" data-precio="$1.49">
-                    <div class="amount-box">📈 Pase Nivel 15</div>
-                    <div class="price-badge-ios">$1.49</div>
-                </div>
-                <div class="gem-option" data-pack="📈 Pase Nivel 20" data-precio="$1.49">
-                    <div class="amount-box">📈 Pase Nivel 20</div>
-                    <div class="price-badge-ios">$1.49</div>
-                </div>
-                <div class="gem-option" data-pack="📈 Pase Nivel 25" data-precio="$1.49">
-                    <div class="amount-box">📈 Pase Nivel 25</div>
-                    <div class="price-badge-ios">$1.49</div>
-                </div>
                 <div class="gem-option" data-pack="📈 Pase Nivel 30" data-precio="$2.00">
                     <div class="amount-box">📈 Pase Nivel 30</div>
                     <div class="price-badge-ios">$2.00</div>
+                </div>
+            </div>
+
+            <div id="panelRoblox" class="tab-panel">
+                <div class="gem-option" data-pack="🤖 400 Robux" data-precio="$4.99">
+                    <div class="amount-box">🤖 400 Robux</div>
+                    <div class="price-badge-ios">$4.99</div>
+                </div>
+                <div class="gem-option" data-pack="🤖 800 Robux" data-precio="$9.99">
+                    <div class="amount-box">🤖 800 Robux</div>
+                    <div class="price-badge-ios">$9.99</div>
+                </div>
+                <div class="gem-option" data-pack="🤖 1700 Robux" data-precio="$19.99">
+                    <div class="amount-box">🤖 1700 Robux</div>
+                    <div class="price-badge-ios">$19.99</div>
+                </div>
+                <div class="gem-option" data-pack="🤖 4500 Robux" data-precio="$49.99">
+                    <div class="amount-box">🤖 4500 Robux</div>
+                    <div class="price-badge-ios">$49.99</div>
                 </div>
             </div>
         </div>
         <button class="ios-button-style danger" id="btnAtrasRecarga">Atrás</button>
     </div>
 
+    <!-- SECCIÓN MÉTODO DE PAGO -->
     <div id="seccionMetodoPago" class="card">
         <h3>Método de Pago</h3>
         <p style="color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">Elige cómo deseas realizar tu pago:</p>
@@ -631,6 +730,7 @@
         <button class="ios-button-style danger" id="btnAtrasMetodo">Atrás</button>
     </div>
 
+    <!-- SECCIÓN PAGO SEGURO -->
     <div id="seccionPago" class="card">
         <h3>Pago Seguro</h3>
         
@@ -651,6 +751,7 @@
         <button class="ios-button-style danger" id="btnCancelarPago">Cancelar</button>
     </div>
 
+    <!-- SECCIÓN TICKET -->
     <div id="seccionTicket" class="card">
         <h3 style="text-align: center; margin-bottom: 5px;">Comprobante de Orden</h3>
         <p style="text-align: center; font-size: 13px; color: var(--text-secondary); margin-bottom: 15px; font-weight: 500;">Guarda una copia de este recibo</p>
@@ -658,8 +759,9 @@
         <div class="status-badge"><span>🟡 PENDIENTE POR VALIDAR</span></div>
 
         <div class="ticket-box" id="reciboContenedorDescarga">
-            <div class="ticket-row"><span class="ticket-label">Nick Jugador:</span><span class="ticket-value" id="t-nombre" style="color: #4CD964; font-weight: 700;">--</span></div>
-            <div class="ticket-row"><span class="ticket-label">ID Jugador:</span><span class="ticket-value" id="t-id">--</span></div>
+            <div class="ticket-row"><span class="ticket-label">Juego:</span><span class="ticket-value" id="t-juego" style="color: var(--ios-blue); font-weight: 700;">--</span></div>
+            <div class="ticket-row"><span class="ticket-label">Usuario / ID:</span><span class="ticket-value" id="t-nombre" style="color: #4CD964; font-weight: 700;">--</span></div>
+            <div class="ticket-row"><span class="ticket-label">Identificador:</span><span class="ticket-value" id="t-id">--</span></div>
             <div class="ticket-row"><span class="ticket-label">Producto:</span><span class="ticket-value" id="t-pack">--</span></div>
             <div class="ticket-row"><span class="ticket-label">Método:</span><span class="ticket-value" id="t-metodo">--</span></div>
             <div class="ticket-row"><span class="ticket-label">Monto Total:</span><span class="ticket-value" id="t-monto">--</span></div>
@@ -670,10 +772,12 @@
 
         <button class="ios-button-style" id="btnDescargarRecibo" style="background: linear-gradient(135deg, rgba(76, 217, 100, 0.9), rgba(52, 199, 89, 0.9)); border-top: 1px solid rgba(255,255,255,0.4); box-shadow: 0 4px 12px rgba(76, 217, 100, 0.15);">📸 Descargar Recibo (Imagen)</button>
 
-        <button class="ios-button-style" id="btnEnviarWhatsApp">Notificar a Esteban</button>
+        <!-- Botón modificado para envío de correo automático -->
+        <button class="ios-button-style" id="btnEnviarCorreo" style="background: linear-gradient(135deg, rgba(0, 122, 255, 0.9), rgba(88, 86, 214, 0.9));">✉️ Enviar Orden a mi Correo</button>
         <button class="ios-button-style danger" id="btnNuevaOrden">Hacer otra recarga</button>
     </div>
 
+    <!-- SECCIÓN CALIFICACIÓN -->
     <div id="seccionCalificacion" class="card">
         <h3 style="text-align: center; margin-bottom: 8px;">¿Qué tal tu experiencia?</h3>
         <p style="text-align: center; font-size: 14px; color: var(--text-secondary); margin-bottom: 5px; font-weight: 500;">Tu opinión es muy importante para seguir mejorando el servicio.</p>
@@ -696,35 +800,8 @@
     </div>
 </div>
 
-<!-- ⚙️ BOTÓN DE ENGRANAJE FLOTANTE (SIEMPRE VISIBLE EN LA ESQUINA) -->
-<div id="btnAdminTrigger" onclick="abrirModalAdmin()" style="position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100000; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 20px;">
-    ⚙️
-</div>
-
-<!-- 🔐 MODAL DE ACCESO AL PANEL DE ADMINISTRACIÓN (SIEMPRE DISPONIBLE) -->
-<div id="modalAdmin" class="card" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); z-index: 100001; max-width: 350px; display: none; opacity: 0; transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1); background: rgba(255,255,255,0.9); backdrop-filter: blur(25px);">
-    <h3 style="margin-bottom: 15px;">Panel de Control</h3>
-    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 15px;">Introduce tu clave de administrador para gestionar el estado de la tienda.</p>
-    <input type="password" id="inputClaveAdmin" placeholder="Clave de Admin" style="margin-bottom: 12px;">
-    <button class="ios-button-style" id="btnValidarAdmin">Entrar al Panel</button>
-    <button class="ios-button-style danger" onclick="cerrarModalAdmin()" style="margin-top: 8px;">Cancelar</button>
-</div>
-
-<!-- 🔒 PANTALLA DE MANTENIMIENTO (SOLO BLOQUEA CUANDO ESTÁ ACTIVA) -->
-<div id="pantallaMantenimiento" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(242, 242, 247, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 99999; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center;">
-    <div style="font-size: 60px; margin-bottom: 15px;">🛠️</div>
-    <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 10px; color: #000;">Sitio en Mantenimiento</h2>
-    <p style="font-size: 15px; color: #3A3A3C; max-width: 320px; margin-bottom: 25px; line-height: 1.4;">Esteban está aplicando mejoras y optimizaciones en la tienda. Volveremos en unos momentos.</p>
-    
-    <div id="adminPanelControlDirecto" style="display: none; background: rgba(255,255,255,0.8); padding: 15px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1); margin-top: 10px;">
-        <p style="font-size: 12px; font-weight: 700; color: #FF3B30; margin-bottom: 8px;" id="textoEstadoAdmin">ESTADO: EN MANTENIMIENTO 🛠️</p>
-        <button class="ios-button-style" id="btnAccionMantenimiento" onclick="alternarMantenimientoLocal(false)" style="background: #4CD964; margin-top: 0; padding: 10px 20px; font-size: 14px;">Desactivar Mantenimiento</button>
-    </div>
-</div>
-
 <script>
     const tasaDolarHoy = 900; 
-    const tuNumeroWhatsApp = "584264309757"; 
 
     const firebaseConfig = {
         apiKey: "AIzaSyCWLQaTQXt6DFHHf1S_-shcNdIaLpwXeoo",
@@ -743,6 +820,7 @@
         }
     } catch (e) { }
 
+    let juegoSeleccionado = "";
     let jugadorId = "";
     let jugadorNombre = "";
     let precioSeleccionado = "";
@@ -753,9 +831,9 @@
     const cambiarPantalla = (pantallaOcultar, pantallaMostrar) => {
         document.getElementById(pantallaOcultar).classList.remove('active');
         document.getElementById(pantallaMostrar).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // 💬 LÓGICA DE CONTROL PARA EL ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ) 💬
     function toggleFaq(button) {
         const item = button.parentElement;
         const content = item.querySelector('.faq-content');
@@ -768,7 +846,6 @@
                 i.classList.remove('open');
                 i.querySelector('.faq-content').style.maxHeight = null;
             });
-            
             item.classList.add('open');
             content.style.maxHeight = content.scrollHeight + "px";
         }
@@ -788,44 +865,73 @@
         });
     }
 
+    document.getElementById('btnElegirFreeFire').addEventListener('click', function() {
+        juegoSeleccionado = "Free Fire";
+        document.getElementById('juegoSeleccionadoLabel').innerText = "🛡️ Servidor Oficial LATAM";
+        document.getElementById('tituloIdLabel').innerText = "ID Jugador (UID)";
+        document.getElementById('idInput').placeholder = "Ingresa tu UID de Free Fire";
+        
+        document.getElementById('contenedorSegmentadoTabs').style.display = 'flex';
+        document.getElementById('panelDiamantes').classList.add('active');
+        document.getElementById('panelRoblox').classList.remove('active');
+        
+        cambiarPantalla('seccionSeleccionJuego', 'seccionLogin');
+    });
+
+    document.getElementById('btnElegirRoblox').addEventListener('click', function() {
+        juegoSeleccionado = "Roblox";
+        document.getElementById('juegoSeleccionadoLabel').innerText = "🤖 Servidor Oficial Roblox";
+        document.getElementById('tituloIdLabel').innerText = "Usuario de Roblox";
+        document.getElementById('idInput').placeholder = "Ingresa tu Nick o Usuario";
+        
+        document.getElementById('contenedorSegmentadoTabs').style.display = 'none';
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById('panelRoblox').classList.add('active');
+        
+        cambiarPantalla('seccionSeleccionJuego', 'seccionLogin');
+    });
+
     const pestañas = ['tabDiamantes', 'tabTarjetas', 'tabPase'];
     const paneles = ['panelDiamantes', 'panelTarjetas', 'panelPase'];
 
     pestañas.forEach((idTab, index) => {
         document.getElementById(idTab).addEventListener('click', function() {
             pestañas.forEach(t => document.getElementById(t).classList.remove('active'));
-            paneles.forEach(p => document.getElementById(p).classList.remove('active'));
+            ['panelDiamantes', 'panelTarjetas', 'panelPase'].forEach(p => document.getElementById(p).classList.remove('active'));
             
             this.classList.add('active');
             document.getElementById(paneles[index]).classList.add('active');
         });
     });
 
-    // Paso 1: Verificación de Identidad
     document.getElementById('btnLogin').addEventListener('click', function() {
         const idInput = document.getElementById('idInput');
         const btnLogin = document.getElementById('btnLogin');
         const cardLogin = document.getElementById('seccionLogin');
         jugadorId = idInput.value.trim();
 
-        if (!/^\d{8,12}$/.test(jugadorId)) {
-            return alert("ID Inválido. Debe tener entre 8 i 12 números.");
+        if (juegoSeleccionado === "Free Fire" && !/^\d{8,12}$/.test(jugadorId)) {
+            return alert("ID Inválido. Debe tener entre 8 y 12 números.");
+        }
+        if (juegoSeleccionado === "Roblox" && jugadorId.length < 3) {
+            return alert("Por favor ingresa un nombre de usuario de Roblox válido.");
         }
 
         cardLogin.classList.add('verificando');
-        btnLogin.innerText = "Esteban esta verificando tu UID...";
+        btnLogin.innerText = "Esteban esta verificando tu cuenta...";
         btnLogin.disabled = true; idInput.disabled = true;
 
-        if (db) { db.collection("jugadores").add({ id: jugadorId, fecha: new Date() }).catch(function() { }); }
+        localStorage.setItem('esteban_last_id', jugadorId);
+
+        if (db) { db.collection("jugadores").add({ juego: juegoSeleccionado, id: jugadorId, fecha: new Date() }).catch(function() { }); }
 
         setTimeout(function() {
-            cardLogin.classList.remove('verificando'); btnLogin.innerText = "Verificar Identidad";
+            cardLogin.classList.remove('verificando'); btnLogin.innerText = "Verificar Cuenta";
             btnLogin.disabled = false; idInput.disabled = false;
             cambiarPantalla('seccionLogin', 'seccionRecarga');
-        }, 5000);
+        }, 3000);
     });
 
-    // Paso 2: Selección de Pack dinámico
     document.addEventListener('click', function(e) {
         const op = e.target.closest('#seccionRecarga .gem-option');
         if (op) {
@@ -842,7 +948,6 @@
         }
     });
 
-    // Paso 3: Barra desplegable
     document.getElementById('btnContinuarMetodo').addEventListener('click', function() {
         const select = document.getElementById('selectMetodoPago');
         metodoSeleccionado = select.value;
@@ -887,7 +992,6 @@
         cambiarPantalla('seccionMetodoPago', 'seccionPago');
     });
 
-    // Paso 4: Confirmar pago
     document.getElementById('btnFinalizar').addEventListener('click', function() {
         referenciaIngresada = document.getElementById('refPago').value.trim();
         const btnFinalizar = document.getElementById('btnFinalizar');
@@ -914,13 +1018,18 @@
             const totalEnBolivares = (precioNumerico * tasaDolarHoy).toFixed(2);
             const montoFinalTexto = (metodoSeleccionado === "Pago Móvil") ? totalEnBolivares + " Bs." : precioSeleccionado;
 
-            const listaNombres = ["Slayer", "Alfa", "Ghost", "Ninja", "Titan", "Raptor", "Zeus", "Shadow", "Gamer"];
-            const ultimos4 = jugadorId.slice(-4); 
-            const indice = parseInt(jugadorId) % listaNombres.length;
-            jugadorNombre = listaNombres[indice] + "_" + ultimos4;
+            if (juegoSeleccionado === "Free Fire") {
+                const listaNombres = ["Slayer", "Alfa", "Ghost", "Ninja", "Titan", "Raptor", "Zeus", "Shadow", "Gamer"];
+                const ultimos4 = jugadorId.slice(-4); 
+                const indice = parseInt(jugadorId) % listaNombres.length;
+                jugadorNombre = listaNombres[indice] + "_" + ultimos4;
+            } else {
+                jugadorNombre = jugadorId;
+            }
 
             if (db) {
                 db.collection("pagos_recargas").add({
+                    juego: juegoSeleccionado,
                     jugadorId: jugadorId,
                     jugadorNombre: jugadorNombre,
                     pack: packSeleccionadoNombre,
@@ -932,7 +1041,8 @@
                 }).catch(() => {});
             }
 
-            document.getElementById('t-nombre').innerText = "⚔️ " + jugadorNombre;
+            document.getElementById('t-juego').innerText = juegoSeleccionado;
+            document.getElementById('t-nombre').innerText = (juegoSeleccionado === "Free Fire" ? "⚔️ " : "🤖 ") + jugadorNombre;
             document.getElementById('t-id').innerText = jugadorId;
             document.getElementById('t-pack').innerText = packSeleccionadoNombre;
             document.getElementById('t-metodo').innerText = metodoSeleccionado;
@@ -953,7 +1063,7 @@
                 .then((querySnapshot) => {
                     clearTimeout(temporizadorFondeo);
                     if (!querySnapshot.empty) {
-                        alert("⚠️ ERROR: Esta referencia ya fue utilizada en una recarga anterior. Ingresa los datos de tu pago actual.");
+                        alert("⚠️ ERROR: Esta referencia ya fue utilizada en una recarga anterior.");
                         btnFinalizar.disabled = false;
                         btnFinalizar.innerText = "Confirmar Pago";
                         validacionTerminada = true;
@@ -971,29 +1081,24 @@
         }
     });
 
-    // 📸 LÓGICA CON CANVAS NATIVO PARA GENERAR IMAGEN REAL (.PNG) 📸
     document.getElementById('btnDescargarRecibo').addEventListener('click', function() {
         const montoFinalTexto = document.getElementById('t-monto').innerText;
         
         const canvas = document.createElement('canvas');
         canvas.width = 500;
-        canvas.height = 650;
+        canvas.height = 680;
         const ctx = canvas.getContext('2d');
 
-        const gradientBg = ctx.createLinearGradient(0, 0, 500, 650);
+        const gradientBg = ctx.createLinearGradient(0, 0, 500, 680);
         gradientBg.addColorStop(0, '#FFFFFF');
         gradientBg.addColorStop(1, '#EFEFF4');
         ctx.fillStyle = gradientBg;
-        ctx.fillRect(0, 0, 500, 650);
-
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
-        ctx.lineWidth = 8;
-        ctx.strokeRect(4, 4, 492, 492);
+        ctx.fillRect(0, 0, 500, 680);
 
         ctx.fillStyle = '#007AFF'; 
         ctx.font = 'bold 28px -apple-system, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('TIENDA ESTEBAN', 250, 60);
+        ctx.fillText('TIENDA ESTEBAN 4K', 250, 60);
 
         ctx.fillStyle = '#3A3A3C';
         ctx.font = '600 16px -apple-system, sans-serif';
@@ -1005,25 +1110,25 @@
 
         ctx.fillStyle = 'rgba(255, 149, 0, 0.12)';
         ctx.roundRect ? ctx.roundRect(110, 145, 280, 40, 12) : ctx.fillRect(110, 145, 280, 40);
-        ctx.fill();
         ctx.fillStyle = '#FF9500';
         ctx.font = 'bold 15px -apple-system, sans-serif';
         ctx.fillText('🟡 PENDIENTE POR VALIDAR', 250, 170);
 
         const datos = [
-            { label: 'Nick Jugador:', val: jugadorNombre },
-            { label: 'ID Jugador:', val: jugadorId },
+            { label: 'Juego:', val: juegoSeleccionado },
+            { label: 'Usuario / Nick:', val: jugadorNombre },
+            { label: 'Identificador:', val: jugadorId },
             { label: 'Producto:', val: packSeleccionadoNombre },
             { label: 'Método de Pago:', val: metodoSeleccionado },
             { label: 'Monto Total:', val: montoFinalTexto },
             { label: 'N° Referencia:', val: referenciaIngresada }
         ];
 
-        let yPos = 240;
+        let yPos = 230;
         ctx.textAlign = 'left';
 
         datos.forEach((item, index) => {
-            if(index === 5) {
+            if(index === 6) {
                 ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
                 ctx.beginPath(); ctx.moveTo(40, yPos - 15); ctx.lineTo(460, yPos - 15); ctx.stroke();
             }
@@ -1032,65 +1137,76 @@
             ctx.font = '500 16px -apple-system, sans-serif';
             ctx.fillText(item.label, 45, yPos);
 
-            ctx.fillStyle = (index === 0) ? '#34C759' : (index === 5 ? '#007AFF' : '#000000');
+            ctx.fillStyle = (index === 0 ? '#007AFF' : (index === 1 ? '#34C759' : (index === 6 ? '#007AFF' : '#000000')));
             ctx.font = 'bold 16px -apple-system, sans-serif';
             ctx.textAlign = 'right';
             ctx.fillText(item.val, 455, yPos);
             
             ctx.textAlign = 'left'; 
-            yPos += 45;
+            yPos += 42;
         });
 
         ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
-        ctx.beginPath(); ctx.moveTo(40, 530); ctx.lineTo(460, 530); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(40, 545); ctx.lineTo(460, 545); ctx.stroke();
 
         ctx.fillStyle = '#8E8E93';
         ctx.font = '500 13px -apple-system, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('¡Gracias por tu confianza! Tu recarga estará lista ahorita.', 250, 565);
-        ctx.fillText('Generado el: ' + new Date().toLocaleString(), 250, 590);
+        ctx.fillText('¡Gracias por tu confianza! Tu recarga estará lista ahorita.', 250, 580);
+        ctx.fillText('Generado el: ' + new Date().toLocaleString(), 250, 605);
 
         const urlImagen = canvas.toDataURL('image/png');
         const enlaceDescarga = document.createElement('a');
         enlaceDescarga.href = urlImagen;
-        enlaceDescarga.download = 'Recibo_TiendaEsteban_' + referenciaIngresada + '.png';
+        enlaceDescarga.download = 'Recibo_' + juegoSeleccionado + '_' + referenciaIngresada + '.png';
         
         document.body.appendChild(enlaceDescarga);
         enlaceDescarga.click();
         document.body.removeChild(enlaceDescarga);
     });
 
-    // Paso 5: Enviar a WhatsApp
-    document.getElementById('btnEnviarWhatsApp').addEventListener('click', function() {
+    // Envío automático del correo usando EmailJS
+    document.getElementById('btnEnviarCorreo').addEventListener('click', function() {
+        const btnCorreo = document.getElementById('btnEnviarCorreo');
         const montoFinalTexto = document.getElementById('t-monto').innerText;
         
-        const mensajeWhatsApp = encodeURIComponent(
-            "💎 NUEVA SOLICITUD DE RECARGA 💎\n\n" +
-            "👤 Nick Jugador: " + jugadorNombre + "\n" +
-            "🆔 ID Jugador: " + jugadorId + "\n" +
-            "📦 Paquete: " + packSeleccionadoNombre + "\n" +
-            "📱 Método: " + metodoSeleccionado + "\n" +
-            "💰 Monto: " + montoFinalTexto + "\n" +
-            "🔢 Ref: " + referenciaIngresada + "\n\n" +
-            "Estatus: 🟡 Esperando validación por Esteban 4K."
-        );
-        
-        window.open("https://wa.me/" + tuNumeroWhatsApp + "?text=" + mensajeWhatsApp, '_blank');
-        
-        setTimeout(function() {
-            cambiarPantalla('seccionTicket', 'seccionCalificacion');
-        }, 400);
+        btnCorreo.disabled = true;
+        btnCorreo.innerText = "Enviando correo automático...";
+
+        const templateParams = {
+            to_email: "sarmientoesteban039@gmail.com",
+            juego: juegoSeleccionado,
+            usuario: jugadorNombre,
+            identificador: jugadorId,
+            paquete: packSeleccionadoNombre,
+            metodo: metodoSeleccionado,
+            monto: montoFinalTexto,
+            referencia: referenciaIngresada
+        };
+
+        // NOTA: Debes crear una cuenta gratuita en EmailJS (emailjs.com), 
+        // configurar un servicio de correo y colocar tus IDs reales aquí abajo:
+        emailjs.send('service_8mka1j9', 'template_3ywl5w9', templateParams)
+            .then(function(response) {
+                alert("✅ ¡Correo enviado a Esteban con éxito!");
+                btnCorreo.disabled = false;
+                btnCorreo.innerText = "✉️ Enviar Orden a mi Correo";
+                cambiarPantalla('seccionTicket', 'seccionCalificacion');
+            }, function(error) {
+                alert("⚠️ Error al enviar el correo automáticamente. Verifica tus credenciales de EmailJS.");
+                btnCorreo.disabled = false;
+                btnCorreo.innerText = "✉️ Enviar Orden a mi Correo";
+            });
     });
 
-    // ⭐ ENVÍO AUTOMÁTICO DE ESTRELLAS ⭐
     document.querySelectorAll('.stars-wrapper input').forEach(function(starInput) {
         starInput.addEventListener('change', function() {
             const puntuacion = this.value;
             
             if (db) {
                 db.collection("valoraciones").add({
+                    juego: juegoSeleccionado,
                     jugadorId: jugadorId,
-                    jugadorNombre: jugadorNombre,
                     estrellas: puntuacion,
                     fecha: new Date()
                 }).catch(() => {});
@@ -1103,11 +1219,12 @@
 
     document.getElementById('btnFinalTodo').addEventListener('click', function() { location.reload(); });
     document.getElementById('btnNuevaOrden').addEventListener('click', function() { location.reload(); });
+    
+    document.getElementById('btnAtrasSeleccionJuego').addEventListener('click', function() { cambiarPantalla('seccionLogin', 'seccionSeleccionJuego'); });
     document.getElementById('btnAtrasRecarga').addEventListener('click', function() { cambiarPantalla('seccionRecarga', 'seccionLogin'); });
     document.getElementById('btnAtrasMetodo').addEventListener('click', function() { cambiarPantalla('seccionMetodoPago', 'seccionRecarga'); });
     document.getElementById('btnCancelarPago').addEventListener('click', function() { cambiarPantalla('seccionPago', 'seccionMetodoPago'); });
 
-    // Partículas limpias de fondo
     const containerParticulas = document.getElementById('particles-container');
     const cantidadParticulas = 35; 
     const coloresParticulas = ['#FF69B4', '#00BFFF', '#FF1493', '#1E90FF']; 
@@ -1124,16 +1241,12 @@
         containerParticulas.appendChild(particula);
     }
 
-    // 🔥 PROGRAMACIÓN COMPLETA DEL "HYPE EN VIVO" 🔥
     const fakePurchases = [
-        { user: "Alfa_Gamer", item: "💎 520 Diamantes", time: "hace 1 min" },
+        { user: "Alfa_Gamer", item: "💎 572 Diamantes", time: "hace 1 min" },
+        { user: "RobloxPro99", item: "🤖 800 Robux", time: "hace 2 min" },
         { user: "Slayer_FF", item: "👑 Tarjeta Mensual", time: "hace 3 min" },
-        { user: "Ghost_Pro", item: "📈 Pase Nivel 30", time: "hace 5 min" },
-        { user: "Ninja⚔️", item: "💎 1060 Diamantes", time: "hace 2 min" },
-        { user: "Titan_Youtuber", item: "💎 310 Diamantes", time: "hace 4 min" },
-        { user: "Raptor_Vzla", item: "🎫 Tarjeta Semanal", time: "hace 1 min" },
-        { user: "Zeus_FF", item: "💎 1060 Diamantes", time: "hace 30 seg" },
-        { user: "Shadow_Free", item: "📈 Pase Nivel 25", time: "hace 6 min" }
+        { user: "BaconHair_X", item: "🤖 400 Robux", time: "hace 4 min" },
+        { user: "Ghost_Pro", item: "📈 Pase Nivel 30", time: "hace 5 min" }
     ];
 
     function showNextHypeNotification() {
@@ -1141,106 +1254,22 @@
         const userEl = document.getElementById('hypeUser');
         const descEl = document.getElementById('hypeDesc');
         
-        // Agarrar una compra aleatoria
         const randomPurchase = fakePurchases[Math.floor(Math.random() * fakePurchases.length)];
         
         userEl.innerText = "🔥 @" + randomPurchase.user;
         descEl.innerText = "Compró " + randomPurchase.item + " " + randomPurchase.time;
         
-        // Mostrar la notificación subiéndola
         notifBox.classList.add('show');
         
-        // Ocultarla después de 5 segundos
         setTimeout(() => {
             notifBox.classList.remove('show');
         }, 5000);
     }
 
-    // Iniciar el ciclo de notificaciones automáticas (Cada 12 segundos aparece una nueva)
     setTimeout(() => {
         showNextHypeNotification();
         setInterval(showNextHypeNotification, 12000);
-    }, 3000); // Primera notificación a los 3 segundos de abrir la página
-
-const CLAVE_SECRETA_ADMIN = "32345727"; 
-
-window.addEventListener('DOMContentLoaded', () => {
-    verificarEstadoMantenimientoLocal();
-});
-
-function abrirModalAdmin() {
-    const modal = document.getElementById('modalAdmin');
-    modal.style.display = 'block';
-    setTimeout(() => {
-        modal.style.opacity = '1';
-        modal.style.transform = 'translate(-50%, -50%) scale(1)';
-    }, 10);
-}
-
-function cerrarModalAdmin() {
-    const modal = document.getElementById('modalAdmin');
-    modal.style.opacity = '0';
-    modal.style.transform = 'translate(-50%, -50%) scale(0.9)';
-    setTimeout(() => { modal.style.display = 'none'; }, 300);
-}
-
-document.getElementById('btnValidarAdmin').addEventListener('click', function() {
-    const clave = document.getElementById('inputClaveAdmin').value.trim();
-    if (clave === CLAVE_SECRETA_ADMIN) {
-        cerrarModalAdmin();
-        document.getElementById('inputClaveAdmin').value = "";
-        
-        const estaActivo = localStorage.getItem('modoMantenimientoEsteban') === 'true';
-        document.getElementById('adminPanelControlDirecto').style.display = 'block';
-        
-        // Si ya está en mantenimiento, mostramos la opción de desactivarlo y abrimos la cortina para que veas el botón
-        const textoEstado = document.getElementById('textoEstadoAdmin');
-        const botonAccion = document.getElementById('btnAccionMantenimiento');
-        
-        if (estaActivo) {
-            document.getElementById('pantallaMantenimiento').style.display = 'flex';
-            textoEstado.innerText = "ESTADO: EN MANTENIMIENTO 🛠️";
-            textoEstado.style.color = "#FF3B30";
-            botonAccion.innerText = "Desactivar Mantenimiento";
-            botonAccion.style.background = "#4CD964";
-            botonAccion.setAttribute("onclick", "alternarMantenimientoLocal(false)");
-        } else {
-            // Si la tienda está abierta, mostramos el panel de control flotando o abrimos la cortina temporalmente para que puedas activarlo
-            document.getElementById('pantallaMantenimiento').style.display = 'flex';
-            textoEstado.innerText = "ESTADO: TIENDA ONLINE 🟢";
-            textoEstado.style.color = "#4CD964";
-            botonAccion.innerText = "Poner en Mantenimiento";
-            botonAccion.style.background = "#FF3B30";
-            botonAccion.setAttribute("onclick", "alternarMantenimientoLocal(true)");
-        }
-        
-        alert("🔓 ¡Acceso concedido al panel!");
-    } else {
-        alert("❌ Clave incorrecta.");
-    }
-});
-
-function alternarMantenimientoLocal(activar) {
-    if (activar) {
-        localStorage.setItem('modoMantenimientoEsteban', 'true');
-        alert("🛠️ Tienda puesta en Mantenimiento.");
-        location.reload();
-    } else {
-        localStorage.setItem('modoMantenimientoEsteban', 'false');
-        alert("✅ ¡Mantenimiento desactivado! La tienda está online.");
-        location.reload();
-    }
-}
-
-function verificarEstadoMantenimientoLocal() {
-    const estado = localStorage.getItem('modoMantenimientoEsteban');
-    if (estado === 'true') {
-        document.getElementById('pantallaMantenimiento').style.display = 'flex';
-    } else {
-        document.getElementById('pantallaMantenimiento').style.display = 'none';
-    }
-}
-
+    }, 3000);
 </script>
 </body>
 </html>
